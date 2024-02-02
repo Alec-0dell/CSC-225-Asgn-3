@@ -1,8 +1,49 @@
-; Encrypts a string using a Caesar cipher.
-; CSC 225, Assignment 3
-; Given code, Winter '24
-
-; TODO: Complete this program.
-
 .ORIG x3000
+
+    LEA R0, PROMPT_KEY
+    PUTS
+    GETC
+    OUT
+    ADD R2, R0, #-16
+    ADD R2, R2, #-16
+    ADD R2, R2, #-16
+    GETC
+    OUT
+    ADD R1, R0, #-10
+    BRnp ERROR
+    LEA R0, PROMPT_STRING
+    PUTS
+
+GET_USER_STRING:
+    GETC
+    OUT
+    ADD R1, R0, #-10
+    BRz ECHO_USER_INPUT
+    JSR STORE_USER_STRING
+    BR GET_USER_STRING
+    
+STORE_USER_STRING:
+    LD R1, STRING_PTR
+    ADD R0, R2, R0
+    STI R0, STRING_PTR
+    ADD R1, R1, #1
+    ST R1, STRING_PTR
+    RET
+    
+ECHO_USER_INPUT:
+    LD R0, STRING_HEAD
+    PUTS
+    HALT
+    
+ERROR:
+    LEA R0, ERROR_STRING
+    PUTS
+    HALT
+    
+PROMPT_STRING .STRINGZ "ENTER A STRING: "
+PROMPT_KEY  .STRINGZ "ENTER AN INTEGER KEY: "
+ERROR_STRING  .STRINGZ "ERR PLEASE ENTER AN INTEGER (0-9) THEN PRESS ENTER"
+STRING_PTR  .FILL x3105
+STRING_HEAD .FILL x3105
+
 .END
