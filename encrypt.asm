@@ -30,10 +30,10 @@ STORE_USER_STRING:
     ADD R0, R2, R0
     LD R3, LOWER_CHAR_BOUND
     NOT R3, R3
-    ADD R3, R3, #-1
+    ADD R3, R3, #1
     LD R4, UPPER_CHAR_BOUND
     NOT R4, R4
-    ADD R4, R4, #-1
+    ADD R4, R4, #1
     ADD R3, R0, R3
     BRzp #1
     LD R0, UNKWN_STRING
